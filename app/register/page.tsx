@@ -55,7 +55,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-black">
+    <div className="pt-20 min-h-screen flex items-center justify-center bg-gray-100 dark:bg-black">
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center">Register</CardTitle>
@@ -103,10 +103,16 @@ export default function RegisterPage() {
             </AlertDialogContent>
           </AlertDialog>
         </CardContent>
-        <CardFooter className="justify-center">
+        <CardFooter className="flex flex-col items-center">
           <Link href="/" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
             Back to Home
           </Link>
+          <span className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+            Already have an account?{' '}
+            <Link href="/login" className="text-blue-600 dark:text-blue-400 hover:underline">
+              Login
+            </Link>
+          </span>
         </CardFooter>
       </Card>
     </div>

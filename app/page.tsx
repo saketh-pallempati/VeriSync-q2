@@ -61,7 +61,7 @@ const txButtons = {
 
 const Hero = () => {
   return (
-    <section className='relative overflow-hidden'>
+    <section className='pt-20 relative overflow-hidden min-h-screen'>
       <Animate/>
       <motion.div
         variants={containerBox}

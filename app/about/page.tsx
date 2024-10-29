@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 export default function AboutPage() {
   return (
-    <div className="light:bg-gradient-to-b from-blue-100 to-white dark:bg-black dark:text-white">
+    <div className="pt-20 min-h-screen light:bg-gradient-to-b from-blue-100 to-white dark:bg-black dark:text-white">
       <div className="container mx-auto px-4 py-16">
         <header className="text-center mb-16">
           <h1 className="text-4xl font-bold mb-4 text-gray-900 dark:text-white">Welcome to ZK Auth</h1>

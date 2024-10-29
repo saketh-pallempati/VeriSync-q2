@@ -52,7 +52,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-black">
+    <div className="pt-20 min-h-screen flex items-center justify-center bg-gray-100 dark:bg-black">
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center">Login</CardTitle>
@@ -94,10 +94,16 @@ export default function LoginPage() {
             </AlertDescription>
           </Alert>}
         </CardContent>
-        <CardFooter className="justify-center">
-          <Link href="/" className="text-sm text-blue-600 hover:underline">
+        <CardFooter className="flex flex-col items-center">
+          <Link href="/" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
             Back to Home
           </Link>
+          <span className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+            Don&apos;t have an account?{' '}
+            <Link href="/register" className="text-blue-600 dark:text-blue-400 hover:underline">
+              Register
+            </Link>
+          </span>
         </CardFooter>
       </Card>
     </div>
