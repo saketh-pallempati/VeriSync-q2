@@ -5,6 +5,7 @@ import "./globals.css";
 import Navbar from "@/components/navbar/Navbar";
 const inter = Inter({ subsets: ["latin"] });
 import Head from "next/head";
+import { Toaster } from '@/components/ui/toaster'
 
 export const metadata: Metadata = {
   title: "ZK Authentication",
@@ -25,6 +26,8 @@ export default function RootLayout({
         <ThemeProvider attribute="class">
           <Navbar />
           {children}
+          <Toaster /> {/* Include the Toaster component */}
+
         </ThemeProvider>
       </body>
     </html>

@@ -61,8 +61,8 @@ const txButtons = {
 
 const Hero = () => {
   return (
-    <section className='overflow-hidden'>
-      <Animate />
+    <section className='relative overflow-hidden'>
+      <Animate/>
       <motion.div
         variants={containerBox}
         initial="hidden"
@@ -109,9 +109,15 @@ const Hero = () => {
           variants={ImageBox}
           initial="hidden"
           animate="show"
-          className="hidden lg:mt-0 lg:col-span-5 lg:flex"
+          className="mt-8 flex justify-center lg:mt-0 lg:col-span-5"
         >
-          <Lottie loop animationData={lottieJson} play style={{ width: 600, filter: 'hue-rotate(140deg)' }} />
+          <Lottie
+            loop
+            animationData={lottieJson}
+            play
+            className="w-80 sm:w-96 md:w-full lg:w-auto max-w-full"
+            style={{ filter: 'hue-rotate(140deg)' }}
+          />
         </motion.div>
       </motion.div>
     </section>

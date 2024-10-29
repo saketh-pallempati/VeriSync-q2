@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
 import { generate_proof, verify_proof } from '../../lib/zk-wasm'
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { ExclamationTriangleIcon, RocketIcon } from '@radix-ui/react-icons'
 
 export default function LoginPage() {
   const [username, setUsername] = useState<number | ''>('')
@@ -56,7 +58,7 @@ export default function LoginPage() {
           <CardTitle className="text-2xl font-bold text-center">Login</CardTitle>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4 mb-4">
             <div>
               <Input
                 type="number"
@@ -77,8 +79,20 @@ export default function LoginPage() {
             </div>
             <Button type="submit" className="w-full">Login</Button>
           </form>
-          {error && <div className="text-red-500 mt-2 text-center">{error}</div>}
-          {success && <div className="text-green-500 mt-2 text-center">{success}</div>}
+          {error && <Alert variant="destructive">
+            <ExclamationTriangleIcon className="h-4 w-4" />
+            <AlertTitle>Error : Check Credentials</AlertTitle>
+            <AlertDescription>
+              {error}
+            </AlertDescription>
+          </Alert>}
+          {success && <Alert>
+            <RocketIcon className="h-4 w-4" />
+            <AlertTitle>Heads up!</AlertTitle>
+            <AlertDescription>
+              {success}
+            </AlertDescription>
+          </Alert>}
         </CardContent>
         <CardFooter className="justify-center">
           <Link href="/" className="text-sm text-blue-600 hover:underline">

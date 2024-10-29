@@ -7,11 +7,28 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
 import { get_pass_hash } from '../../lib/zk-wasm'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { useToast } from "@/hooks/use-toast"
 
 export default function RegisterPage() {
+  const { toast } = useToast()
+
   const [username, setUsername] = useState<number | ''>('')
   const [password, setPassword] = useState('')
   const router = useRouter()
+
+  // State to control AlertDialog visibility
+  const [isAlertOpen, setIsAlertOpen] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -20,7 +37,7 @@ export default function RegisterPage() {
     // Store in localStorage (simulating backend)
     const users = JSON.parse(localStorage.getItem('users') || '{}');
     if (users[username]) {
-      alert('Username already exists');
+      setIsAlertOpen(true) // Open the AlertDialog
       return;
     }
 
@@ -30,7 +47,10 @@ export default function RegisterPage() {
 
     localStorage.setItem('users', JSON.stringify(users));
 
-    alert('Registration successful!');
+    toast({
+      title: "Registration Successfull",
+      description: "You will be redirected to the login page",
+    });
     router.push('/login');
   }
 
@@ -62,9 +82,29 @@ export default function RegisterPage() {
             </div>
             <Button type="submit" className="w-full">Register</Button>
           </form>
+
+
+          {/* AlertDialog for Username Already Exists */}
+          <AlertDialog open={isAlertOpen} onOpenChange={setIsAlertOpen}>
+            <AlertDialogTrigger asChild>
+              <button className="hidden">Open Alert</button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Username Already Exists</AlertDialogTitle>
+                <AlertDialogDescription>
+                  The username you have entered is already taken. Please choose a different username.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel onClick={() => setIsAlertOpen(false)}>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={() => setIsAlertOpen(false)}>OK</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </CardContent>
         <CardFooter className="justify-center">
-          <Link href="/" className="text-sm text-blue-600 hover:underline">
+          <Link href="/" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
             Back to Home
           </Link>
         </CardFooter>
