@@ -35,7 +35,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-black">
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center">Register</CardTitle>
@@ -45,7 +45,7 @@ export default function RegisterPage() {
             <div>
               <Input
                 type="number"
-                placeholder="Username"
+                placeholder="Username (Number)"
                 value={username}
                 onChange={(e) => setUsername(e.target.value ? parseInt(e.target.value) : '')}
                 required

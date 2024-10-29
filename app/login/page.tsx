@@ -18,34 +18,39 @@ export default function LoginPage() {
     setError(null)
     setSuccess(null)
 
-    if (typeof username !== 'number') {
-      setError('Username must be a number')
-      return
-    }
+    try {
+      if (typeof username !== 'number') {
+        throw new Error('Username must be a number')
+      }
 
-    const users = JSON.parse(localStorage.getItem('users') || '{}')
-    const userData = users[username]
+      const users = JSON.parse(localStorage.getItem('users') || '{}')
+      const userData = users[username]
 
-    if (!userData) {
-      setError('User not found')
-      return
-    }
+      if (!userData) {
+        throw new Error('User not found')
+      }
 
-    const proof = await generate_proof(username, password)
+      const proof = await generate_proof(username, password)
+      const isValid = await verify_proof(proof, userData.hashedPassword, username)
 
-    const isValid = await verify_proof(proof, userData.hashedPassword, username)
-
-    if (isValid) {
-      setSuccess('Login successful!')
-      setUsername('')
-      setPassword('')
-    } else {
-      setError('Invalid credentials')
+      if (isValid) {
+        setSuccess('Login successful!')
+        setUsername('')
+        setPassword('')
+      } else {
+        throw new Error('Invalid credentials')
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+        setError("Error from wasm File: " + err.message)
+      } else {
+        setError('An unknown error occurred')
+      }
     }
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-black">
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center">Login</CardTitle>
@@ -72,8 +77,8 @@ export default function LoginPage() {
             </div>
             <Button type="submit" className="w-full">Login</Button>
           </form>
-          {error && <div className="text-red-500 mt-2">{error}</div>}
-          {success && <div className="text-green-500 mt-2">{success}</div>}
+          {error && <div className="text-red-500 mt-2 text-center">{error}</div>}
+          {success && <div className="text-green-500 mt-2 text-center">{success}</div>}
         </CardContent>
         <CardFooter className="justify-center">
           <Link href="/" className="text-sm text-blue-600 hover:underline">
